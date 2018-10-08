@@ -1,3 +1,10 @@
+### Vue对象挂载
+var vm = new Vue({
+	el: '#app',
+	data: {
+	}
+})
+Vue要等dom加载完才能挂在，所以不能写在head里，要写在body script标签里面
 ### 箭头函数作用域 （this)
 
 箭头函数本身没有this，this指向最近的外层作用域
@@ -80,3 +87,52 @@ document.write(str.match(/\d+/g))
 
 1,2,3
 ```
+### 修饰符
+.lazy  
+change事件  data不是实时改变的，要等失焦或按enter键才改变
+.number 会把值转变为数值型数据
+
+### v-model
+<input type="radio" value = "js">
+value绑定的值默认显示值
+
+### 组件
+全局注册 Vue.component('name',{template:'<div></div>'})
+局部注册 components: {
+	name: {
+	template: ''
+}
+}
+
+porps 书第74页（重要）
+ 
+子传父  @接收＝fun(val) 这里有个语法糖， this.$emit('input', '儿子传信息') v-model = 'val' 
+
+### 组件之间通信
+bus  创建Vue空实例
+this.$parent this.$children可直接修改父子组件的内容（少用，不太符合单向数据流的定义）
+### 子组件索引 $rel= 'comp1'
+this.$resf.comp1.message
+这是应急方案，只在组件渲染完才填充，且非响应式的，仅仅作为一个指节访问子组件的应急方案，应当避免在模板和计算属性当中使用
+
+### nextTick
+
+```
+	this.$nextTick(_ => {
+
+		})
+```
+进入Vue下一个队列，解决有时data数据改变，dom还未重绘
+
+### <script type="text/x-template"></script>
+```
+<son></son>	
+<script type="text/x-template">
+	<div>这里可以写html，不用在template里面用字符串拼hmtl</div>
+</script>
+Vue.component('son',{
+	template: "#son"
+})
+
+
+
